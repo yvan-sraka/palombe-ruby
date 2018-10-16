@@ -1,9 +1,11 @@
 require "mkfifo"
 
 class Palombe
+    PREFIX = "/tmp/palombe/"
+
     def self.send name, value
-        Dir.mkdir "/tmp/palombe/"
-        path = "/tmp/palombe/#{name}"
+        Dir.mkdir PREFIX
+        path = "#{PREFIX}#{name}"
         File.mkfifo(path)
         File.open(path, "w") do |f|
             f.puts value
@@ -11,7 +13,7 @@ class Palombe
     end
 
     def self.receive name
-        path = "/tmp/palombe/#{name}"
+        path = "#{PREFIX}#{name}"
         value = ""
         File.open(path, "r") do |f|
             while line = f.gets
