@@ -4,9 +4,17 @@ Palombe lets you send and receive messages synchronously through different proce
 
 ## Quick example
 
+### Thread A
 ```ruby
 require 'palombe'
 
 Palombe.send "foo", "bar"
+```
+
+### Thread B
+
+```ruby
+require 'palombe'
+
 puts Palombe.receive "foo" # bar
 ```
