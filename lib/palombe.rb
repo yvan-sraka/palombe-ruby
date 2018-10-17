@@ -1,25 +1,27 @@
-require "mkfifo"
-
 class Palombe
-    PREFIX = "/tmp/palombe/"
+    def self.mkfifo name
+        prefix = "/tmp/palombe/"
+        Dir.mkdir prefix if !Dir.exist? prefix
+        path = "#{prefix}#{name}"
+        File.mkfifo(path) if !File.exist? path
+        path
+    end
 
     def self.send name, value
-        Dir.mkdir PREFIX
-        path = "#{PREFIX}#{name}"
-        File.mkfifo(path)
-        File.open(path, "w") do |f|
+        File.open((mkfifo name), "w") do |f|
             f.puts value
         end
     end
 
     def self.receive name
-        path = "#{PREFIX}#{name}"
         value = ""
+        path = mkfifo name
         File.open(path, "r") do |f|
             while line = f.gets
                 value += line
             end
         end
-        value
+        File.delete path
+        value.chomp
     end
 end
