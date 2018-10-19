@@ -1,9 +1,9 @@
 class Palombe
-    def self.mkfifo name
+    private_class_method def self.mkfifo name
         prefix = "/tmp/palombe/"
         Dir.mkdir prefix if !Dir.exist? prefix
         path = "#{prefix}#{name}"
-        File.mkfifo(path) if !File.exist? path
+        File.mkfifo(path, 0o600) if !File.exist? path
         path
     end
 
