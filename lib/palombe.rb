@@ -1,5 +1,5 @@
 class Palombe
-    private_class_method def self.mkfifo name
+    private_class_method def self.__mkfifo name
         prefix = "/tmp/palombe/"
         Dir.mkdir prefix if !Dir.exist? prefix
         path = "#{prefix}#{name}"
@@ -8,14 +8,14 @@ class Palombe
     end
 
     def self.send name, value
-        File.open((mkfifo name), "w") do |f|
+        File.open((__mkfifo name), "w") do |f|
             f.puts value
         end
     end
 
     def self.receive name
         value = ""
-        path = mkfifo name
+        path = __mkfifo name
         File.open(path, "r") do |f|
             while line = f.gets
                 value += line
