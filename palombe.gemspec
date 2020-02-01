@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
     s.name        = 'palombe'
-    s.version     = '0.3.2'
+    s.version     = '0.4.0'
     s.summary = "Palombe lets you send and receive messages synchronously through different processes using named pipes"
     s.authors     = ["Yvan Sraka"]
     s.email       = 'yvan@sraka.pw'

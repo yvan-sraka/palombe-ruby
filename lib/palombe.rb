@@ -1,16 +1,6 @@
 class Palombe
-    private_class_method def self.__mkfifo name
-        prefix = "/tmp/palombe/"
-        Dir.mkdir prefix if !Dir.exist? prefix
-        path = "#{prefix}#{name}"
-        File.mkfifo(path, 0o600) if !File.exist? path
-        path
-    end
-
     def self.send name, value
-        File.open((__mkfifo name), "w") do |f|
-            f.puts value
-        end
+        system('start /wait excel "my/path/to/the/sheet"')
     end
 
     def self.receive name
